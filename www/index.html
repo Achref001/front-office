@@ -1,0 +1,531 @@
+<html ng-app="ionicApp">
+  <head>  
+      <!--some native style for the splash page-->
+      <!--<style type="text/css">
+         
+    .splash {
+      background: blue; 
+      color: white;
+    }
+    .splash h2 {
+      font-size: 2.1em;
+      font-weight: 500;
+    }
+  </style>-->
+      <!--end of native splash screen-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+      <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+      
+      <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+      
+      <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+      
+      <title>Bourse Tunisie</title>
+<script src="js/pace.js"></script>
+      <link href="css/pace-theme-center-circle.css" rel="stylesheet" />
+    <link href="http://code.ionicframework.com/0.9.26/css/ionic.min.css" rel="stylesheet">
+    <script src="http://code.ionicframework.com/0.9.26/js/ionic.bundle.min.js"></script>
+      <!--cool listView include-->
+          
+      <!--<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+
+
+      <!--end cool listView include-->
+      
+         <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>-->
+
+
+      <!--for the local memory stuck of the css and js file -->
+      <!--<link href="css/ionic.min.css" rel="stylesheet">
+      <script src="js/ionic.bundle.min.js"></script>-->
+      
+      
+      <!--including some files here for the slide menu-->
+      <script src="js/slideMenu.js" ></script>
+      <script src="js/boursetunisie.js"></script>
+      <link rel="stylesheet" href="css/BourseTunisie.css" />
+      
+      <!--includin jQuery for the JSON parsing-->
+         
+      <script type="text/javascript" >
+    function getMarcheDevise($scope , $http)
+        {
+            $http({method:'GET' , url:'http://boursetunisiewebservice0-boursetunisie.rhcloud.com/feeds/CoursDevises' }).success(function(data)
+                                                                                                         {
+                $scope.devise = data ; //response data
+            });
+        }
+        
+        angular.module('MyApp',[]) .controller("getMarcheDevise",getMarcheDevise ) ;
+    
+    </script>
+      
+      
+      
+      
+      
+      <script type="text/javascript" >
+          var t ;
+    function getJSON($scope , $http)
+        {
+          
+            $http({method:'GET' , url:'http://boursetunisiewebservice0-boursetunisie.rhcloud.com/feeds/urlpics' }).success(function(data)
+                                                                                                         {
+                $scope.post = data ; //response data
+            });
+        
+          
+        }
+          function showMore($scope , $http)
+        {
+             
+            
+            $scope.inc = function(tag)
+          {
+                 
+             t= tag;
+          }
+/*
+            alert('show more') ;
+*/
+            
+            $http({method:'GET' , url:'http://boursetunisiewebservice0-boursetunisie.rhcloud.com/feeds/showmore/'+t}).success(function(data)
+                                                                                                         {
+                
+                $scope.showmore = data ; //response data
+            });
+            
+        }
+          
+        angular.module('MyApp',[]) .controller("getJSON",getJSON ) .controller("showMore",showMore );
+   
+    </script>
+      
+      <script type="text/javascript" >
+    function getInfsosJSON($scope , $http)
+        {
+            $http({method:'GET' , url:'http://boursetunisiewebservice0-boursetunisie.rhcloud.com/feeds/InformationSociete' }).success(function(data)
+                                                                                                         {
+                $scope.infsos = data ; //response data
+            });
+        }
+          function gonext($scope)
+          {
+            $scope.go = function ( path ) {
+  $location.path( path );
+};
+          }
+        
+        angular.module('MyApp',[]) .controller("getInfsosJSON",getInfsosJSON ).controller("gonext",gonext ) ;
+   
+    </script>
+      
+      
+      
+      <script type="text/javascript" >
+    function getCautation($scope , $http)
+        {
+            $http({method:'GET' , url:'http://boursetunisiewebservice0-boursetunisie.rhcloud.com/feeds/getcotations' }).success(function(data)
+                                                                                                         {
+                $scope.cot = data ; //response data
+            });
+        }
+         
+        
+        angular.module('MyApp',[]) .controller("getCautation",getCautation );
+   
+    </script>
+      <script type="text/javascript" >
+    function getpalmares($scope , $http)
+        {
+            $http({method:'GET' , url:'http://boursetunisiewebservice0-boursetunisie.rhcloud.com/feeds/palmares' }).success(function(data)
+                                                                                                         {
+                $scope.pal = data ; //response data
+            });
+        }
+         
+        
+        angular.module('MyApp',[]) .controller("getpalmares",getpalmares );
+   
+    </script>
+      
+      
+  </head>
+
+  <body>
+     <!-- The splash screen must be first -->
+    <!--<div id="splash" ng-cloak>
+      <h2>Loading</h2>
+    </div>-->
+    <!-- The rest of our app -->
+ <!--including facebook SDK-->
+     <!-- <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.4&appId=1456688697881343";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>  -->
+      <!--end including facebook SDK-->
+    <div ng-controller="MainCtrl">
+      <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    </div>
+    
+    <script id="menu.html" type="text/ng-template">
+      <ion-side-menus>
+        <ion-pane ion-side-menu-content>
+             <ion-nav-bar animation="nav-title-slide-ios7" 
+             type="bar-positive" 
+             left-buttons="leftButtons"
+             back-button-type="button-icon" 
+             back-button-icon="ion-arrow-left-c"></ion-nav-bar>
+          <ion-nav-view name="menu-content"></ion-nav-view>
+        </ion-pane> 
+        <ion-side-menu side="left">
+          <ion-content>
+            <ul class="list">
+              <a href="#/main/tab/home" class="item" ng-click="mainCtrl.showFeature = false"><img src="Applicationpictures/actualite30x30.jpg" style="width:30px;height:30px;" > 
+            <strong>Actualité Marché</strong>  </a>
+              <a href="#/main/tab/about" class="item"ng-click="mainCtrl.showFeature = false"><img src="Applicationpictures/devise.png" style="width:30px;height:30px;" ><strong>Cours des devises</strong></a>
+                <a href="#/main/tab/contact" class="item"ng-click="mainCtrl.showFeature = false"><img src="Applicationpictures/coursDesDevises.png" style="width:30px;height:30px;" ><strong>Palmares de la bourse</strong></a>
+                <a href="#/main/tab/feature" class="item" ng-click="mainCtrl.showFeature = true"><img src="Applicationpictures/cautation.png" style="width:30px;height:30px;" ><strong>Les cotations</strong></a>
+            </ul>
+          </ion-content>
+        </ion-side-menu>
+      </ion-side-menus>    
+        
+        
+        
+    </script>
+    
+        <!--this ion tab will handle the bottom icons , their actions and their links  -->
+    <script id="tabs.html" type="text/ng-template">
+      <ion-tabs tabs-style="tabs-icon-top" tabs-type="tabs-positive">
+         
+
+        <ion-tab title="Actualités" icon="ion-ios7-world" href="Applicationpictures/actualite10x10.jpg">
+          <ion-nav-view name="home-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Publication" icon="ion-ios7-world" href="#/main/tab/about">
+          <ion-nav-view name="about-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Palmares de la bourse" icon="ion-ios7-world" ui-sref="main.tabs.contact">
+          <ion-nav-view name="contact-tab"></ion-nav-view>
+        </ion-tab>
+
+        <ion-tab title="Les cotations" icon="ion-ios7-world" ui-sref="main.tabs.feature" >
+          <ion-nav-view name="feature-tab"></ion-nav-view>
+        </ion-tab>
+        
+      </ion-tabs>
+    </script>
+      
+      <!--end of handling the bottom icons -->
+      
+      
+<script id="showmore.html" type="text/ng-template">
+      <ion-view title="'show more'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true" >
+            <!--<h1>test testtest </h1-->>
+          </ion-content>
+    </ion-view>
+            </script>
+      <!--this script will handle hte first tab bar (home) or in our case actualité -->
+    <script id="home.html" type="text/ng-template">
+      <ion-view title="'Actualités du marché'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true" >
+         
+            <!--here we will put the content of the fist tab bar -->
+            
+        
+          
+         <div data-role="page" id="pageone">
+  <div data-role="main" class="ui-content">
+              
+      
+
+        <div ng-app="MyApp" ng-controller="getJSON">
+            
+            <!--if our json feed is just only one element then our json 
+                feed should be like this 
+               1 we remove the div above we just put post.tag and                       post.value to get the item  -->
+             <!--<h1>JSON Feed</h1>
+            <br>
+            <p>{{p}}</p>-->
+            <!--<h1>Dernières actualités</h1>-->
+            
+            <div  >
+           
+            <!--<strong>{{p.tag}}</strong>-->
+           <!-- <ol data-role="listview">-->
+             <table id="keywords" cellspacing="0" cellpadding="0" ng-controller="showMore">
+                <tr ng-repeat="p in post" my-element>
+                <td class="lalign" > <img src={{p.value}} style="width:60px;height:60px;"/></td>
+                 
+                    
+                    <td style="vertical-align: top;" ><a href="#/main/tab/facts2" ng-click="inc(p.id)"   ><strong> {{p.tag}}</strong></a> <strong style="display:none" ng-model="p.id">{{p.id}}</strong></td>
+                    <!--<td class="centered" style="display:none" ng-model="p.id">{{p.id}}</td>-->
+                <!--<td class="centered"><a href="#/main/tab/facts2" ng-click="inc(p.id)" >consulter l'article</a></td>-->
+                 </tr>
+                </table>
+             
+                <!--<li>{{p.value}} </li>-->
+                <!--<li> </li>-->
+                
+                <!--<meta property="og:image"
+content="http://graphics.myfavnews.com/images/logo-100x100.jpg" />
+                <a href="http://www.facebook.com/sharer.php?u=http://facebook.com/
+Anti.Social.Development&t=(Anti) Social Development" target="_blank">
+<img src="http://www.kimwoodbridge.com/asdface.jpg" /></a>-->
+                <br>
+              
+            </div>
+      </div>
+                
+            </div>
+           
+        
+        </div>
+            
+            
+            <!--end of content of the first tab-bar -->
+            
+            
+            
+            
+            <!--<p>Example of Ionic tabs. Navigate to each tab, and
+          navigate to child views of each tab and notice how
+          each tab has its own navigation history.</p>
+          <p>
+            <a class="button icon icon-right ion-chevron-right" href="#/main/tab/facts">Scientific Facts</a>
+          </p>
+            <p>This next button navigates to a view that does not have a tab or present </p>-->
+            
+            
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="about.html" type="text/ng-template" >
+      <ion-view title="'Cours des devises'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true" >
+        
+          
+            
+            <!--<div ng-repeat="p in post"  >
+           
+            <strong>{{p.tag}}</strong>
+            <ol data-role="listview">
+             <li>{{p.value}} </li>
+                <br>
+                </ol>
+            </div>-->
+        <!--here we will put the content of the second tab bar -->
+            
+            <!--i still have a question how the existing button work ?-->
+            <!--end of content of the second tab-bar -->
+            
+            
+      
+            
+            <!-- <p>Banging your head against a wall uses 150 calories an hour.</p>
+          <p>Dogs have four toes on their hind feet, and five on their front feet.</p>
+          <p>The ant can lift 50 times its own weight, can pull 30 times its own weight and always falls over on its right side when intoxicated.</p>
+          <p>A cockroach will live nine days without it's head, before it starves to death.</p>
+          <p>Polar bears are left handed.</p>
+          <p>
+            <a class="button icon ion-home" href="#/main/tab/home"> Home</a>
+            <a class="button icon icon-right ion-chevron-right" href="#/main/tab/facts2">More Facts</a>
+          </p>-->
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="facts2.html" type="text/ng-template" >
+      <ion-view title="'Bourse Tunisie'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true">
+            <br>
+            
+             <div ng-app="MyApp" ng-controller="showMore">
+                 <img src="{{showmore.url}}" style="width=100px;height=100px;"/>
+                 <br>
+                 <br>
+                 <strong style="font-size: 250%;">{{showmore.tag}}</strong>
+                 
+                     </h1>
+                 <br><br> 
+             <h4>    <strong>{{showmore.value}}</strong></h4>
+                 
+      
+                 
+            </div>
+            <!--here we will put the content of the third tab bar -->
+            
+            <!--end of content of the third tab-bar -->
+            
+            
+            
+            <!--<p>111,111,111 x 111,111,111 = 12,345,678,987,654,321</p>
+          <p>1 in every 4 Americans has appeared on T.V.</p>
+          <p>11% of the world is left-handed.</p>
+          <p>1 in 8 Americans has worked at a McDonalds restaurant.</p>
+          <p>$283,200 is the absolute highest amount of money you can win on Jeopardy.</p>
+          <p>101 Dalmatians, Peter Pan, Lady and the Tramp, and Mulan are the only Disney cartoons where both parents are present and don't die throughout the movie.</p>
+          <p>
+            <a class="button icon ion-home" href="#/main/tab/home"> Home</a>
+            <a class="button icon ion-chevron-left" href="#/main/tab/facts"> Scientific Facts</a>
+          </p>
+-->       
+          
+          
+          </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="about.html" type="text/ng-template">
+      <ion-view title="'cours des devises'" left-buttons="leftButtons">
+            <ion-content has-header="true" padding="true">
+            
+            <div ng-app="MyApp" ng-controller="getMarcheDevise">
+             <!--<h2>Cours des devises</h2>-->
+        
+            
+            
+           <br><br>
+        
+           <table id="keywords" cellspacing="0" cellpadding="0">
+               <thead>
+                <tr>
+                         <td class="lalign">Désignation</td>
+                        <td class="lalign">Code</td> 
+                        <td class="lalign">Unité</td>
+                         <td class="lalign">Achat</td>
+                         <td class="lalign">Vente</td>
+
+                </tr>
+               </thead>
+               <br>
+               <tbody>
+                   <tr ng-repeat="p in devise">
+                      
+                       <td>{{p.country}}</td>
+                       <td>{{p.code}}</td>
+                       <td>{{p.unity}}</td>
+                       <td>{{p.achat}}</td>
+                       <td>{{p.vente}}</td>
+               
+               
+                   </tr>
+               </tbody>
+
+          
+          
+             
+               </table>
+                </div>
+                
+                
+        </ion-content>
+      </ion-view>
+    </script>
+
+    <script id="nav-stack.html" type="text/ng-template">
+      <ion-view title="'Tab Nav Stack'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true">
+          
+           
+        </ion-content>
+      </ion-view>
+    </script>
+    <!--the title of the third element-->
+    <script id="contact.html" type="text/ng-template">
+      <ion-view title="'Palmares de la bourse'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true">
+          
+          <!--here is the third tab-->
+        
+            <br>
+            <div ng-app="MyApp" ng-controller="getpalmares">
+            <table>
+                <thead>
+                    <tr>
+                     <th>Nom</td> 
+                     <th>Haut</td>
+                     <th>Bas</td>                  
+                     <th>Dernier</td>
+                     <th>volume</td>
+                     <th>Variation jour</td>
+                        </tr>
+                <thead>
+                        
+                        
+                        <tbody>
+                <tr ng-repeat="p in pal" >
+                    
+                     <td >{{p.nom}}</td> 
+                     <td>{{p.haut}}</td>
+                     <td >{{p.bas}}</td>
+                     <td>{{p.dernier}}</td>
+                     <td >{{p.volume}}</td>
+                    <td >{{p.variationdujour}}</td>
+                </tr>
+                </tbody>
+                
+                </table>
+            
+            </div>
+        </ion-content>
+      </ion-view>
+    </script>
+    
+    <script id="feature.html" type="text/ng-template">
+      <ion-view title="'Les cotations'" left-buttons="leftButtons">
+        <ion-content has-header="true" padding="true">
+<!--
+          This is a feature pane that does not require a visible tab button.
+-->
+           
+            <br>
+            <div ng-app="MyApp" ng-controller="getCautation">
+            <table>
+                <thead>
+                    <tr>
+                    <th>Nom</td>
+                    <th>Ouverture</td>
+                    <th>Haut</td>
+                    <th>Bas</td>
+                    <th>Volume(titre)</td>
+                    <th>Volume(DT)</td>
+                    <th>Dernier</td>
+                    <th>Variation</td>
+                        </tr>
+                <thead>
+                        
+                        
+                        <tbody>
+                <tr ng-repeat="p in cot" >
+                    <td>{{p.nom}}</td>
+                    <td>{{p.ouverture}}</td>
+                    <td>{{p.haut}}</td>
+                    <td>{{p.bas}}</td>
+                    <td>{{p.volume}}</td>
+                    <td>{{p.volume2}}</td>
+                    <td>{{p.dernier}}</td>
+                    <td>{{p.variation}}</td>
+                </tr>
+                </tbody>
+                
+                </table>
+            
+            </div>
+        </ion-content>
+      </ion-view>
+    </script>
+  </body>
+</html>
